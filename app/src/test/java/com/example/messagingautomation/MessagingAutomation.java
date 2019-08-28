@@ -4,6 +4,6 @@ public class MessagingAutomation {
 
 
     // Appium Code Goes Here
-    // Test Comment.
+    // Test Comment Goes Here
 
 }

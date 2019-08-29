@@ -28,4 +28,8 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation files('libs/java-client-7.1.0.jar')
+
+    testImplementation 'org.testng:testng:6.14.3'
+    implementation 'org.seleniumhq.selenium:selenium-java:4.0.0-alpha-1'
+    implementation 'org.apache.commons:commons-lang3:3.9'
 }

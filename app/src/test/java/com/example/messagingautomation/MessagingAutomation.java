@@ -1,5 +1,7 @@
 package com.example.messagingautomation;
 
+import android.view.inputmethod.InputConnection;
+
 import net.bytebuddy.asm.Advice;
 
 import org.openqa.selenium.By;
@@ -12,6 +14,9 @@ import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.Key;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import io.appium.java_client.AppiumDriver;
@@ -69,7 +74,7 @@ public class MessagingAutomation {
         System.out.println("Application Launched Is Successful");
     }
 
-    @Test
+    @Test (priority = 0)
     public void CommencingTest(){
 
         System.out.println("Commencing Test");
@@ -93,6 +98,34 @@ public class MessagingAutomation {
         appium_Driver.findElementByAccessibilityId("More options").click();
         appium_Driver.findElementsByClassName("android.widget.TextView").get(3).click();
         System.out.println("Message Tinkering Is Done");
+
+    }
+
+    @Test (priority = 1)
+    public void CommmencingAnotherTestImprovisation(){
+
+        appium_Driver.findElementByAccessibilityId("Start new conversation").click();
+
+        appium_Driver.findElement(By.id("com.google.android.apps.messaging:id/recipient_text_view")).sendKeys("q");
+
+        Map<String, Object> EnterKeyEvent  = new HashMap<>();
+        EnterKeyEvent.put("key", "66");
+
+        //  Key code constant: 'A' key.           Key code constant: 'Z' key.        Key code constant: Enter key.
+        //Constant Value: 29 (0x0000001d)         Constant Value: 54 (0x00000036)    Constant Value: 66 (0x00000042)
+
+        // Key code constant: Numeric keypad '0' key.  Key code constant: Numeric keypad '9' key.  Key code constant: '+' key.
+        //Constant Value: 144 (0x00000090)             Constant Value: 153 (0x00000099)            Constant Value: 81 (0x00000051)
+
+
+        //'a' - 'z' --> 29 - 54
+        //'0' - '9'--> 7 - 16
+        //SPACE --> 62
+        //ENTER ---> 66
+        //BACKSPACE --> 67
+        //BACK --> 4
+        //CALL --> 5
+        //ENDCALL --> 6
 
     }
 

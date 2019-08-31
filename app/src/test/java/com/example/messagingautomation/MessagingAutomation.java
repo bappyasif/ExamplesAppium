@@ -19,6 +19,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
+
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 
@@ -74,13 +79,35 @@ public class MessagingAutomation {
         System.out.println("Application Launched Is Successful");
     }
 
+    public void OpenConverastion(){
+
+        try{
+
+            appium_Driver.findElement(By.id("com.google.android.apps.messaging:id/start_new_conversation_button")).click();
+
+            appium_Driver.findElementByAccessibilityId("Start new conversation").click();
+
+            //appium_Driver.findElement(By.id("android:id/list")).click();
+
+
+        } catch (Exception ex){
+
+            System.out.println(ex.getCause());
+
+        } finally {
+
+            System.out.println("Message Window Is Opened");
+
+        }
+
+    }
+
     @Test (priority = 0)
     public void CommencingTest(){
 
         System.out.println("Commencing Test");
 
-        appium_Driver.findElementByAccessibilityId("Start new conversation").click();
-        System.out.println("Message Window Is Opened");
+        OpenConverastion();
 
         // Using Send Keys Method
         //appium_Driver.findElement(By.id("com.google.android.apps.messaging:id/recipient_text_view")).sendKeys("+8801915645093");
@@ -91,25 +118,54 @@ public class MessagingAutomation {
 
         //appium_Driver.findElement(By.id("com.google.android.apps.messaging:id/compose_message_text")).sendKeys("Please Check Your Inbox");
         appium_Driver.findElement(By.id("com.google.android.apps.messaging:id/compose_message_text")).sendKeys(meassageContent);
-        appium_Driver.findElement(By.id("com.google.android.apps.messaging:id/self_send_icon")).click();
+
         System.out.println("Message Sent");
 
-        // Just Improvising
-        appium_Driver.findElementByAccessibilityId("More options").click();
-        appium_Driver.findElementsByClassName("android.widget.TextView").get(3).click();
-        System.out.println("Message Tinkering Is Done");
+        MessageeTinkering();
 
+
+    }
+
+    public void MessageeTinkering(){
+
+        try{
+
+            appium_Driver.findElement(By.id("com.google.android.apps.messaging:id/message_indicator")).click();
+            appium_Driver.findElement(By.id("com.google.android.apps.messaging:id/self_send_icon")).click();
+
+
+        } catch (Exception ex){
+
+            System.out.println(ex.getCause());
+
+        } finally {
+
+            // Just Improvising
+            appium_Driver.findElementByAccessibilityId("More options").click();
+
+            appium_Driver.findElementsByClassName("android.widget.TextView").get(2).click();
+
+            System.out.println("Message Tinkering Is Done");
+
+        }
     }
 
     @Test (priority = 1)
     public void CommmencingAnotherTestImprovisation(){
 
-        appium_Driver.findElementByAccessibilityId("Start new conversation").click();
+        OpenConverastion();
 
         appium_Driver.findElement(By.id("com.google.android.apps.messaging:id/recipient_text_view")).sendKeys("q");
 
-        Map<String, Object> EnterKeyEvent  = new HashMap<>();
-        EnterKeyEvent.put("key", "66");
+//        Map<String, Object> EnterKeyEvent  = new HashMap<>();
+//        appium_Driver.findElement(By.id("com.google.android.apps.messaging:id/recipient_text_view"));
+//        EnterKeyEvent.put("key", "23");
+//        EnterKeyEvent.put("key" , "66");
+
+        appium_Driver.getKeyboard().pressKey("a");
+
+        //((AndroidDriver) appium_Driver).pressKey(new KeyEvent(AndroidKey.ENTER));
+        //((AndroidDriver<?>)appium_Driver).pressKey(new KeyEvent(AndroidKey.ENTER));
 
         //  Key code constant: 'A' key.           Key code constant: 'Z' key.        Key code constant: Enter key.
         //Constant Value: 29 (0x0000001d)         Constant Value: 54 (0x00000036)    Constant Value: 66 (0x00000042)
@@ -126,6 +182,18 @@ public class MessagingAutomation {
         //BACK --> 4
         //CALL --> 5
         //ENDCALL --> 6
+
+        // Will Be trying to Get Input From Key-Pad, Rather Than Send As An Input Stream.
+        appium_Driver.findElement(By.id("com.google.android.apps.messaging:id/action_ime_dialpad_toggle")).click();
+        appium_Driver.findElement(By.id("com.google.android.apps.messaging:id/recipient_text_view")).clear();
+        appium_Driver.getKeyboard().pressKey("+");
+        appium_Driver.getKeyboard().pressKey("8");
+        appium_Driver.getKeyboard().pressKey("8");
+        appium_Driver.getKeyboard().pressKey("0");
+        appium_Driver.getKeyboard().pressKey(Keys.ENTER);
+
+//        appium_Driver.findElement(By.id("com.google.android.apps.messaging:id/compose_message_text")).sendKeys(meassageContent);
+//        MessageeTinkering();
 
     }
 
